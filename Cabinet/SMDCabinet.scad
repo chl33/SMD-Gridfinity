@@ -2,16 +2,17 @@ include <ProjectBox/hexsheet.scad>
 include <ProjectBox/rounded_box.scad>
 
 epsilon = 0.01;
+grid_unit = 42;
 
-module SMDCabinet(num_shelves=1) {
-  drawer_dims = [167, 84, 25];  // 2x4 grid, magnets  20 high if not magnet base.
-  // drawer_dims = [167, 84/2, 25];  // 1x4 grid, magnets  20 high if not magnet base.
+module SMDCabinet(drawer_dims = undef, num_shelves=1) {
+
+  // default is 2x4 grid, magnets  20 high if not magnet base.
+  ddims = drawer_dims ? drawer_dims : [grid_unit*4-1, grid_unit*2, 25];
+
   extra_space = 1;
   wall = 2;
-  corner_radius = 1;
-
   
-  drawer_space = drawer_dims + extra_space*[2, 1, 2];
+  drawer_space = ddims + extra_space*[2, 1, 2];
 
   space_between_shelves = wall + drawer_space[2];
 
