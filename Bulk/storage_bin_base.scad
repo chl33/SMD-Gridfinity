@@ -26,9 +26,11 @@ module StorageBin(bin_sz_x = 1, bin_sz_y = 2, bin_div_x = 3, bin_div_y = 1) {
   gridfinityInit(bin_sz_x, bin_sz_y, height(5), 0, 42) {
     dx = bin_sz_x / bin_div_x;
     dy = bin_sz_y / bin_div_y;
-    for (x = [0:dx:1]) {
-      for (y = [0:dy:1]) {
-	cut(x=x, y=y, w=dx, h=dy, t=1, s=0.5);
+    for (x = [0:dx:bin_sz_x]) {
+      for (y = [0:dy:bin_sz_y]) {
+	// Put lift-tab only at the front holes of the bin.
+	tab = (y + dy + 0.1 >= bin_sz_y) ? 1 : 5;
+	cut(x=x, y=y, w=dx, h=dy, s=0.5, t=tab);
       }
     }
   }
