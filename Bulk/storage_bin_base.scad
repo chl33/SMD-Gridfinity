@@ -19,7 +19,7 @@ printable_hole_top = true;
 hole_options = bundle_hole_options(refined_holes, magnet_holes, screw_holes, crush_ribs,
                                    chamfer_holes, printable_hole_top);
 
-module StorageBin(bin_sz_x = 1, bin_sz_y = 2, bin_div_x = 3, bin_div_y = 1, tab = undef) {
+module StorageBin(bin_sz_x = 1, bin_sz_y = 3, bin_div_x = 3, bin_div_y = 1, tab = undef) {
   $fa = 8;
   $fs = 0.25; // .01
 
@@ -30,7 +30,7 @@ module StorageBin(bin_sz_x = 1, bin_sz_y = 2, bin_div_x = 3, bin_div_y = 1, tab 
       for (y = [0:dy:bin_sz_y]) {
 	// Put lift-tab only at the front holes of the bin.
 	tab_ = tab == undef ? ((y + dy + 0.1 >= bin_sz_y) ? 1 : 5) : tab;
-	cut(x=x, y=y, w=dx, h=dy, s=0.5, t=tab);
+	cut(x=x, y=y, w=dx, h=dy, s=0.5, t=tab_);
       }
     }
   }
